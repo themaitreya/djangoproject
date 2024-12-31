@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>상품목록</h2>
+
+<ul>
+{% for product in products %}
+    <li>
+        <a href="{% url'products:product_detail' product.pk %}">
+            {{ product.title}} - ({{ product.user.username }})
+            [조회수: {{ product.views }}, 찜수: {{ product.like_count }}]
+            {% for ht in product.hashtags.all %}
+                #{{ ht.name }}
+            {% endfor %}
+        </a>
+    </li>
+{% empty %}
+    <li>상품이 없습니다.</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'products:product_create' %}">상품등록</a>
+{% endblock %}
